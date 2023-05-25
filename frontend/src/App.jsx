@@ -2,6 +2,7 @@ import { Board } from "./components/Board"
 import { Header } from "./components/Header"
 import { Instructions } from "./components/Instructions"
 import { Offer } from "./components/Offer"
+import { Rules } from "./components/Rules"
 import { Separator } from "./components/Separator"
 import { Title } from "./components/Title"
 
@@ -17,6 +18,7 @@ function App() {
         <Separator/>
         <Instructions/>
         <Separator/>
+        <Rules/>
       </Board>
     </>
   )
