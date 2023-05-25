@@ -28,5 +28,8 @@ export const GlobalStyle = createGlobalStyle`
         place-content: center;
         place-items: center;
     }
+    #root{
+        width: 100%;
+    }
 
 `
