@@ -4,6 +4,7 @@ import { Instructions } from "./components/Instructions"
 import { Offer } from "./components/Offer"
 import { Rules } from "./components/Rules"
 import { Separator } from "./components/Separator"
+import { Social } from "./components/Social"
 import { Title } from "./components/Title"
 
 
@@ -19,6 +20,7 @@ function App() {
         <Instructions/>
         <Separator/>
         <Rules/>
+        <Social/>
       </Board>
     </>
   )
