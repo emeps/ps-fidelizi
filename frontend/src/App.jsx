@@ -5,6 +5,8 @@ import { Offer } from "./components/Offer"
 import { Separator } from "./components/Separator"
 import { Title } from "./components/Title"
 
+
+// TODO: Alterar div para section para manter a semantica
 function App() {
   return (
     <>
