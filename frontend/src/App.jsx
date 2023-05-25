@@ -1,7 +1,12 @@
+import { Board } from "./components/Board"
+import { Header } from "./components/Header"
+
 function App() {
   return (
     <>
-      <h1 className="text-center text-red-400">Hellow World!</h1>
+      <Board>
+        <Header/>
+      </Board>
     </>
   )
 }
