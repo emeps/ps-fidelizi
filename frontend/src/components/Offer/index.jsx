@@ -1,19 +1,29 @@
+/* eslint-disable react/prop-types */
 import {
   OfferContainer,
   OfferContainerImage,
   OfferImage,
   OfferContainerComponent,
+  OfferTextFooter,
+  OfferActiveContainer,
+  // OfferActiveButton,
+  OfferSharedSpan,
+  OfferSharedContainer,
+  OfferAlertContainer,
+  OfferAlertHeader,
+  OfferAlertBody,
+  OfferSharedButton,
+  // OfferContainerQuantity
 } from "./Offer.style";
 import { dataMock } from "../../mock/data";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
+// import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faShare } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import Modal from "react-modal";
+// import Modal from "react-modal";
 
-Modal.setAppElement("#root");
-
+import { ModalFidelizi } from "../Modal";
 
 // TODO: Arrumar o raio da borda da imagem (OfferContainerImage)
 // TODO: Estilizar Botão dos modais
@@ -24,14 +34,8 @@ Modal.setAppElement("#root");
 // TODO: Inserir a mensagem de sucesso e erro
 
 export const Offer = () => {
-  const [modalIsOpen, setIsOpen] = useState(false);
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
+  const [modalShowActive, setModalShowActive] = useState(false);
+  const [modalShowShared, setModalShowShared] = useState(false);
 
   return (
     <>
@@ -40,48 +44,51 @@ export const Offer = () => {
           <OfferImage src={dataMock.image} />
         </OfferContainerImage>
         <OfferContainerComponent>
-          <div>
-            <button onClick={openModal}>
+          <OfferActiveContainer>
+            {/* <OfferActiveButton onClick={() => setModalShowActive(true)}>
               <span>
                 <FontAwesomeIcon icon={faCheck} /> ATIVAR OFERTA
               </span>
-              <div>
+              <OfferContainerQuantity>
                 <span>{dataMock.quantity}</span>
                 <br />
                 <span>{dataMock.complementQuantity}</span>
-              </div>
-            </button>
-            <Modal
-              isOpen={modalIsOpen}
-              onRequestClose={closeModal}
-              contentLabel="Modal de exemplo"
-            >
-              <h2>Olá</h2>
-              <button onClick={closeModal}>Fechar</button>
-            </Modal>
-          </div>
-          <div>
-            <button onClick={openModal}>
-              <span>
+              </OfferContainerQuantity>
+            </OfferActiveButton> */}
+          </OfferActiveContainer>
+          <OfferSharedContainer>
+            <OfferSharedButton  onClick={() => setModalShowShared(true)} >
+              <OfferSharedSpan>
                 <FontAwesomeIcon icon={faShare} /> COMPARTILHAR
-              </span>
-            </button>
-            <Modal
-              isOpen={modalIsOpen}
-              onRequestClose={closeModal}
-              contentLabel="Modal de exemplo"
-            >
-              <h2>Olá</h2>
-              <button onClick={closeModal}>Fechar</button>
-            </Modal>
-          </div>
-          <div>
-            <span>{dataMock.alertDescription}</span>
-            <span> <FontAwesomeIcon icon={faClock}/> {dataMock.days}</span>
-          </div>
+              </OfferSharedSpan>
+            </OfferSharedButton>
+          </OfferSharedContainer>
+          <OfferAlertContainer>
+            <OfferAlertHeader>{dataMock.alertDescription}</OfferAlertHeader>
+            <OfferAlertBody>
+              <FontAwesomeIcon icon={faClock} /> <span>{dataMock.days}</span>
+            </OfferAlertBody>
+          </OfferAlertContainer>
         </OfferContainerComponent>
       </OfferContainer>
-      <pre>{dataMock.description}</pre>
+      <OfferTextFooter>{dataMock.description}</OfferTextFooter>
+
+      <ModalFidelizi
+        show={modalShowActive}
+        onHide={() => setModalShowActive(false)}
+        title={"ATIVAR OFERTA"}
+      >
+        <div>Colocar aqui input para CPF</div>
+      </ModalFidelizi>
+      <ModalFidelizi
+        show={modalShowShared}
+        onHide={() => setModalShowShared(false)}
+        title={"COMPARTILHAR"}
+      >
+        <div>
+          Colocar aqui o component com as imagens e links para compartilhar
+        </div>
+      </ModalFidelizi>
     </>
   );
 };

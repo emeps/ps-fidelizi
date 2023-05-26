@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 
-export const TitleContainer = styled.div`
+export const TitleContainer = styled.section`
     width: 100%;
     display: flex;
     justify-content: center;

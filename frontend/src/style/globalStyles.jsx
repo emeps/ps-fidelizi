@@ -14,6 +14,7 @@ export const GlobalStyle = createGlobalStyle`
         --bs-green-hover: #025802;
         --bs-green: #8eb936;    
         --bs-purple-bold: #180133;
+        --bs-red-alert: #f02222;
     }
     *{
         margin: 0;
