@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('offer', function (Blueprint $table) {
             $table->id();
             $table->string('enterprise_name');
-            $table->text('description');
+            $table->string('description');
             $table->string('image');
             $table->foreignId('reward_id');
             $table->foreign('reward_id')->references('id')->on('reward');
