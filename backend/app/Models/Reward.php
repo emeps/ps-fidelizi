@@ -14,4 +14,8 @@ class Reward extends Model
         'code',
     ];
    
+    public function offers()
+    {
+        return $this->hasMany(Offer::class);
+    }
 }
