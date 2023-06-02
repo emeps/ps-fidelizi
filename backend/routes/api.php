@@ -1,6 +1,11 @@
 <?php
 
-use App\Http\Controllers\OfferController;
+use App\Http\Controllers\{
+    OfferController,
+    OfferActiveController,
+    UserController,
+    RewardController
+};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,8 +24,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/offers', [OfferController::class, 'index']);
-Route::get('/offers/{id}', [OfferController::class, 'show']);
-Route::post('/offers', [OfferController::class, 'store']);
-Route::match(['put', 'patch'], '/offers/{id}', [OfferController::class, 'update']);
-Route::delete('/offers/{id}', [OfferController::class, 'destroy']);
+// Rotas do CRUD's
+Route::apiResource('/users', UserController::class);
+Route::apiResource('/reward', RewardController::class);
+Route::apiResource('/offers', OfferController::class);
+
+// Rotas da Aplicação
+Route::post('/check-user/{id}', [UserController::class, 'checkUser']);
+
