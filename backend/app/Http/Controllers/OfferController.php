@@ -5,73 +5,72 @@ namespace App\Http\Controllers;
 use App\Models\Offer;
 use App\Http\Requests\StoreOfferRequest;
 use App\Http\Requests\UpdateOfferRequest;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class OfferController extends Controller
 {
-    public function __construct(private readonly Offer $offer){
-
+    public function __construct(private readonly Offer $offer)
+    {
     }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index():JsonResponse
     {
-        $offers = $this->offer->all();
-        return response()->json($offers);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        try{
+            $offers = $this->offer->all();
+            return response()->json($offers, Response::HTTP_OK);
+        }catch(\Exception $e){
+            return response()->json(['data' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreOfferRequest $request)
+    public function store(StoreOfferRequest $request):JsonResponse
     {
-        $data = $request->validate();
-        $offer = $this->offer->create($data);
-        return response()->json($offer, 201);
+        try {
+            $data = $request->validated();
+            $offer = $this->offer->create($data);
+            return response()->json($offer, Response::HTTP_CREATED);
+        } catch (\Exception $e) {
+            return response()->json(['data' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Offer $offer)
+    public function show(int $offerId):JsonResponse
     {
-        //
+        $offer = $this->offer->newQuery()->findOrFail($offerId);
+        return response()->json($offer, Response::HTTP_OK);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Offer $offer)
-    {
-        //
-    }
-
+    // TODO: Verificar o codigo de resposta para cada função
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateOfferRequest $request, Offer $offerId)
+    public function update(UpdateOfferRequest $request, int $offerId):JsonResponse
     {
-        $data = $request->validate();
-        $offer = $this->offer->find($offerId);  
-        $offer->update($data);
-        return response()->json($offer, 200);
+        $data = $request->validated();
+        $offer = $this->offer->newQuery()->findOrFail($offerId);
+        try{
+            $offer->update($data);
+            return response()->json($offer, Response::HTTP_OK);
+        }catch(\Exception $e){
+            return response()->json(['data' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Offer $offerId)
+    public function destroy(int $offerId):JsonResponse
     {
-        $offer = $this->offer->find($offerId);
-        $offer->delete();   
-        return response()->json(null, 204);
+        $offer = $this->offer->newQuery()->findOrFail($offerId);
+        return response()->json($offer->delete(), Response::HTTP_NO_CONTENT);
     }
 }
