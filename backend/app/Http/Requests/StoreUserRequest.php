@@ -25,32 +25,31 @@ class StoreUserRequest extends FormRequest
             'fullname' => 'required|string|max:255',
             'email'=> 'required|string|email|max:255|unique:users',
             'cpf'=> 'required|string|max:11|unique:users',
-            'date_birth'=> 'required|date_format:d-m-Y|date',
+            'date_birth'=> 'required|date_format:Y-m-d|date',
             'phone'=> 'required|string|max:11',
+        ];
+    }
+    public function attributes():array
+    {
+        return [
+            'fullname' => 'nome completo',
+            'email'=> 'email',
+            'cpf'=> 'cpf',
+            'date_birth'=> 'data de nascimento',
+            'phone'=> 'telefone',
         ];
     }
     
     public function messages(): array
     {
         return [
-            'fullname.required' => 'O campo nome é obrigatório',
-            'fullname.string' => 'O campo nome deve ser uma string',
-            'fullname.max' => 'O campo nome deve ter no máximo 255 caracteres',
-            'email.required' => 'O campo email é obrigatório',
-            'email.string' => 'O campo email deve ser uma string',
-            'email.email' => 'O campo email deve ser um email válido',
-            'email.max' => 'O campo email deve ter no máximo 255 caracteres',
-            'email.unique' => 'O campo email já está em uso',
-            'cpf.required' => 'O campo cpf é obrigatório',
-            'cpf.string' => 'O campo cpf deve ser uma string',
-            'cpf.max' => 'O campo cpf deve ter no máximo 11 caracteres',
-            'cpf.unique' => 'O campo cpf já está em uso',
-            'date_birth.required' => 'O campo data de nascimento é obrigatório',
-            'date_birth.date_format' => 'O campo data de nascimento deve ser uma data válida',
-            'date_birth.date' => 'O campo data de nascimento deve ser uma data válida',
-            'phone.required' => 'O campo telefone é obrigatório',
-            'phone.string' => 'O campo telefone deve ser uma string',
-            'phone.max' => 'O campo telefone deve ter no máximo 11 caracteres',
+            'required' => 'O campo :attribute é obrigatório',
+            'string' => 'O campo :attribute deve ser uma string',
+            'max' => 'O campo :attribute deve ter no máximo 255 caracteres',
+            'email' => 'O campo :attribute deve ser um email válido',
+            'unique' => 'O campo :attribute já está em uso',
+            'date_format' => 'O campo :attribute deve ser uma data válida',
+            'date' => 'O campo :attribute deve ser uma data válida',
         ];
     }
 

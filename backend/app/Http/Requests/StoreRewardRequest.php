@@ -27,13 +27,19 @@ class StoreRewardRequest extends FormRequest
         ];
     }
 
+    public function attributes():array
+    {
+        return [
+            'description' => 'descrição',
+            'code' => 'código',
+        ];
+    }
+
     public function messages(): array
     {
         return [
-            'description.required' => 'O campo descrição é obrigatório',
-            'description.string' => 'O campo descrição deve ser uma string',
-            'code.required' => 'O campo código é obrigatório',
-            'code.string' => 'O campo código deve ser uma string',
+            'required' => 'O campo :attribute é obrigatório',
+            'string' => 'O campo :attribute deve ser uma string',
         ];
     }
 }
