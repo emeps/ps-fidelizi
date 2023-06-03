@@ -39,7 +39,7 @@ class OfferActiveController extends Controller
     {
         return $user->offers()->where('offer_id', $id)->exists();
     }
-
+    //TODO: Refatorar essa bagaça quando possivel
     public function checkUser(Request $request, int $offerId): JsonResponse
     {
         try {
@@ -52,12 +52,17 @@ class OfferActiveController extends Controller
                 if(!$user){
                     return response()->json(['data' => 'Usuário não encontrado'], Response::HTTP_NOT_FOUND);
                 }else if(!$this->checkOffer($user, $offerId)){
-                    //! Refatorar essa bagaça quando possivel
+                    
                     $offer = $this->offer->newQuery()->findOrFail($offerId);
                     $user->offers()->attach($offer);
-                    $offer['amount_available'] -= 1;
-                    $user->notify(new OfferNotification($offer));
-                    return response()->json(['data' => 'Oferta ativada com sucesso'], Response::HTTP_OK);
+                    if($offer['amount_available'] <= 0){
+                        $offer['status'] = false;
+                        return response()->json(['data' => 'Oferta esgotada'], Response::HTTP_OK);
+                    }else{ 
+                        $offer['amount_available'] -= 1;
+                        $user->notify(new OfferNotification($offer));
+                        return response()->json(['data' => 'Oferta ativada com sucesso'], Response::HTTP_OK);
+                    }
                 }else{
                     return response()->json(['data' => 'Usuário já possui essa oferta'], Response::HTTP_BAD_REQUEST);
                 }
