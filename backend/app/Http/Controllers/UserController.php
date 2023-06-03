@@ -69,4 +69,4 @@ class UserController extends Controller
         return response()->json($user->delete(), Response::HTTP_NO_CONTENT);
     }
 
-    
+}
