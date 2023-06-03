@@ -17,11 +17,10 @@ use function App\Helpers\validate_cpf;
 class UserController extends Controller
 {
     public function __construct(
-        private readonly User $user, 
+        private readonly User $user,
         private readonly Offer $offer
-        
-        )
-    {
+
+    ) {
     }
     public function index(): JsonResponse
     {
@@ -38,13 +37,10 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request): JsonResponse
     {
-        try {
-            $data = $request->validated();
-            $user = $this->user->create($data);
-            return response()->json($user, Response::HTTP_CREATED);
-        } catch (\Exception $e) {
-            return response()->json(['data' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
+
+        $data = $request->validated();
+        $user = $this->user->create($data);
+        return response()->json($user, Response::HTTP_CREATED);
     }
 
     public function show(int $userId): JsonResponse
@@ -73,25 +69,4 @@ class UserController extends Controller
         return response()->json($user->delete(), Response::HTTP_NO_CONTENT);
     }
 
-    public function checkUser(Request $request, int $offerId): JsonResponse
-    {
-        if (!validate_cpf($request->cpf)) {
-            return response()->json(['data' => 'CPF inválido'], Response::HTTP_BAD_REQUEST);
-        } else {
-            $cpf = only_numbers($request->cpf);
-
-            $user = $this->user->newQuery()->where('cpf', $cpf)->firstOrFail();
-
-            /** @var Offer */
-            
-            $offer = $this->offer->newQuery()->findOrFail($offerId);
-
-            $user->offers()->toggle($offer->id);
-
-            //Enviar email
-            $user->notify(new OfferNotification($offer));
-            return response()->json(['data'=>'Promoção cadastrada'], Response::HTTP_OK);
-        }
-    }
-
-}
+    
