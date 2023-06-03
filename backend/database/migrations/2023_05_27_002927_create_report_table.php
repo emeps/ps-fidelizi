@@ -13,10 +13,14 @@ return new class extends Migration
     {
         Schema::create('report', function (Blueprint $table) {
             $table->id();
-            $table->integer('offer_id');
+            $table->string('enterprise_name');
+            $table->text('description');
+            $table->text('reward');
             $table->integer('amount_remaining');
             $table->integer('amount_actived');
             $table->boolean('offer_active');
+            $table->dateTime('date_created');
+            $table->integer('date_remaining');
             $table->dateTime('date_executed');
             $table->timestamps();
         });
