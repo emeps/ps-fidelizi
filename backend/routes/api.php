@@ -30,5 +30,5 @@ Route::apiResource('/reward', RewardController::class);
 Route::apiResource('/offers', OfferController::class);
 
 // Rotas da Aplicação
-Route::post('/check-user/{id}', [UserController::class, 'checkUser']);
-
+Route::post('/check-user/{id}', [OfferActiveController::class, 'checkUser']);
+Route::post('/check-create-user/{id}', [OfferActiveController::class, 'createUser']);
