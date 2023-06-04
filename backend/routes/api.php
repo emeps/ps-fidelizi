@@ -25,10 +25,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // Rotas do CRUD's
-Route::apiResource('/users', UserController::class);
+Route::apiResource('/user', UserController::class);
 Route::apiResource('/reward', RewardController::class);
-Route::apiResource('/offers', OfferController::class);
+Route::apiResource('/offer', OfferController::class);
 
 // Rotas da Aplicação
 Route::post('/check-user/{id}', [OfferActiveController::class, 'checkUser']);
 Route::post('/check-create-user/{id}', [OfferActiveController::class, 'createUser']);
+
+Route::get('/offers/{id}', [OfferActiveController::class, 'show']);
