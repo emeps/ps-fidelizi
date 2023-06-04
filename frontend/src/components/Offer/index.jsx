@@ -93,14 +93,9 @@ export const Offer = ({ id }) => {
       date_birth,
       phone,
     });
-    console.log(fullname,
-      email,
-      cpf,
-      date_birth,
-      phone,)
-      console.log(data)
     verifyCode(data.offer_code);
   };
+
   const verifyCode = (offer_code) => {
     switch (offer_code) {
       case "OFC100":
@@ -314,6 +309,7 @@ export const Offer = ({ id }) => {
                   className="text-center mt-2  px-5"
                   type="submit"
                   style={{ backgroundColor: "#834be1" }}
+                  onClick={() => setModalShowActive(false)}
                 >
                   Continuar <FontAwesomeIcon icon={faAngleRight} />
                 </Button>
