@@ -2,13 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { GlobalStyle } from "./style/globalStyles.jsx";
-import { BrowserRouter } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+const router = createBrowserRouter([
+  {
+    path: "/offers/:id",
+    element: <App />,
+  },
+]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <RouterProvider router={router}>
       <GlobalStyle />
-      <App />
-    </BrowserRouter>
+    </RouterProvider>
   </React.StrictMode>
 );
