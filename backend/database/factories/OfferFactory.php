@@ -19,7 +19,7 @@ class OfferFactory extends Factory
         return [
             'enterprise_name' => $this->faker->company,
             'description' => $this->faker->text,
-            'image' => $this->faker->imageUrl(),
+            'image' => "http://lorempixel.com.br/500/400/?".$this->faker->randomNumber(),
             'reward_id' => $this->faker->numberBetween(1, 10),
             'date_opened' => $this->faker->dateTimeBetween('-1 year', 'now'),
             'date_closed' => $this->faker->dateTimeBetween('now', '+1 year'),
