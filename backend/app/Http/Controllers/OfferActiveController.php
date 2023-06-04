@@ -52,7 +52,7 @@ class OfferActiveController extends Controller
         try {
             $this->userController->store($request);
             $this->checkUser($request, $offerId);
-            return response()->json(['data' => 'Usuário criado e oferta ativada com sucesso'], Response::HTTP_OK);
+            return response()->json(['data' => 'Usuário criado e oferta ativada com sucesso', 'offer_code'=>'OFC201']);
         } catch (\Exception $e) {
             return response()->json(['data' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
